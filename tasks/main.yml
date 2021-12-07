@@ -5,10 +5,15 @@
   when: ansible_os_family == 'Debian'
 
 - name: Enable universe repository
-  command: add-apt-repository universe
+    apt_repository:
+      repo: "{{ item }}"
+    loop:
+      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro-name }} universe"
+      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro-name }}-updates universe"
+      - "deb http://security.ubuntu.com/ubuntu/ {{ distro-name }}-security universe"
   changed_when: false
 
-- name: Confere pacotes da lista estao instalados.
+- name: Packages for fonts.
   apt:
     name:
       - fonts-powerline
@@ -17,7 +22,7 @@
     state: present
   when: ansible_os_family == 'Debian'
 
-- name: Pasta de fonte exite.
+- name: Folder of fonts.
   file:
     dest: "{{ fonte_usuario_home }}"
     state: directory
@@ -25,7 +30,7 @@
   ignore_errors: yes
   become: false
 
-- name: clone do repo powerline-fonts
+- name: Repo of powerline-fonts
   git:
     repo: 'https://github.com/powerline/fonts.git'
     dest: "{{ fonte_usuario_home }}"

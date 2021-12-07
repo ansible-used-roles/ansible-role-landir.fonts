@@ -6,3 +6,4 @@
     - ansible-role-landir.fonts
   vars:
     usuario: "landir"
+    distro-name: "focal"
