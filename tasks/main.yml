@@ -8,9 +8,9 @@
     apt_repository:
       repo: "{{ item }}"
     loop:
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro-name }} universe"
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro-name }}-updates universe"
-      - "deb http://security.ubuntu.com/ubuntu/ {{ distro-name }}-security universe"
+      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro_name }} universe"
+      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro_name }}-updates universe"
+      - "deb http://security.ubuntu.com/ubuntu/ {{ distro_name }}-security universe"
   changed_when: false
 
 - name: Packages for fonts.
