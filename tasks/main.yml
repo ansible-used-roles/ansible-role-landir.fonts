@@ -5,12 +5,12 @@
   when: ansible_os_family == 'Debian'
 
 - name: Enable universe repository
-    apt_repository:
-      repo: "{{ item }}"
-    loop:
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro_name }} universe"
-      - "deb http://archive.ubuntu.com/ubuntu/ {{ distro_name }}-updates universe"
-      - "deb http://security.ubuntu.com/ubuntu/ {{ distro_name }}-security universe"
+  apt_repository:
+    repo: "{{ item }}"
+  loop:
+    - "deb http://archive.ubuntu.com/ubuntu/ {{ distro_name }} universe"
+    - "deb http://archive.ubuntu.com/ubuntu/ {{ distro_name }}-updates universe"
+    - "deb http://security.ubuntu.com/ubuntu/ {{ distro_name }}-security universe"
   changed_when: false
 
 - name: Packages for fonts.
