@@ -1,0 +1,36 @@
+---
+# tasks file for ansible-role-landir.fonts
+- name: Update apt cache (Debian).
+  apt: update_cache=true cache_valid_time=86400
+  when: ansible_os_family == 'Debian'
+
+- name: Enable universe repository
+  command: add-apt-repository universe
+  changed_when: false
+
+- name: Confere pacotes da lista estao instalados.
+  apt:
+    name:
+      - fonts-powerline
+      - fontconfig
+      - fonts-firacode
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: Pasta de fonte exite.
+  file:
+    dest: "{{ fonte_usuario_home }}"
+    state: directory
+    owner: "{{ fonte_usuario }}"
+  ignore_errors: yes
+  become: false
+
+- name: clone do repo powerline-fonts
+  git:
+    repo: 'https://github.com/powerline/fonts.git'
+    dest: "{{ fonte_usuario_home }}"
+    #update=yes
+    #force=yes
+  notify: "restarted font-cache"
+  become: false
+
